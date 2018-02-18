@@ -1,0 +1,166 @@
+
+-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+	<!-- Material Design fonts -->
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Material Design -->
+	<link rel="stylesheet" type="text/css" href="https://www.cise.ufl.edu/~abh/css/bootstrap-material-design.css">
+	<link rel="stylesheet" type="text/css" href="https://www.cise.ufl.edu/~abh/css/ripples.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CellCheck - Providers</title>
+	<style type="text/css">
+
+	   * { margin: 0; padding: 0; }
+	   p { margin-top: 5%;padding: 0px; }
+		 .cproviders{position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #49B24E;}
+	</style>
+	<link rel="stylesheet" type="text/css" href="https://www.cise.ufl.edu/~abh/kekmon.css">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<title>Marker Clustering</title>
+	<style>
+		/* Always set the map height explicitly to define the size of the div
+		 * element that contains the map. */
+		#map {
+			height: 100%;
+		}
+		/* Optional: Makes the sample page fill the window. */
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+
+<body style = "background:#26272B;">
+
+	<nav class="navbar navbar-default"style="margin-top:-20px;background:#49B24E;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="https://www.cise.ufl.edu/~abh/index.html">CellCheck</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="https://www.cise.ufl.edu/~abh/providers.html">Providers</a></li>
+				<li><a href="https://www.cise.ufl.edu/~abh/contracts.html">Contracts</a></li>
+				<li class="active"><a href="https://www.cise.ufl.edu/~abh/coverage.html">Coverage</a></li>
+			</ul>
+		</div>
+	</nav>
+
+<div class="container" >
+<div class="row">
+	<div class="col-md-3" style="background:#49B24E; color:white;border-radius:8px;" id="wew">
+
+		<form action="contracts.php" method="post">
+			<div class="form-group">
+			    <label for="sel1" style="color:#ddd;">Search Contracts<br></label>
+					<div style=margin-bottom:-5px;>
+					</div>
+						<label class="control-label" for="focusedInput1"><br>Provider</label>
+			    <select class="form-control" id="sel1" style="color:#ddd;background:#49B24E; border-bottom:1px solid #ddd;">
+			      <option>AT&T</option>
+			      <option>Sprint</option>
+			      <option>T-Mobile</option>
+			      <option>Verizon</option>
+			    </select>
+    		</div>
+			<div class="form-group label-floating" style="color:#ddd;">
+					<label class="control-label" for="focusedInput1">Zip Code</label>
+					<input class="form-control" id="focusedInput1" type="text" placeholder="34711">
+			</div>
+		<div class="form-group label-floating" style="color:#ddd;">
+				<label class="control-label" for="focusedInput1">Range (miles)</label>
+				<input class="form-control" id="focusedInput1" type="text" placeholder="30">
+		</div>
+
+
+
+			<div class="form-group label-floating">
+				<input type="submit"  class="btn btn-raised btn-default">
+			</div>
+			<p><br></p>
+
+		</form>
+	</div>
+
+	<div class="col-md-6" style="text-align:center;background: rgba(255, 255, 255, 0.8);border-radius:8px;height:500px;margin-left:20px;" id="contractWrapper">
+		<h2><div id="map"></div>
+    <script>
+
+      function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 11,
+          center: {lat: 29.651634, lng: -82.3248}
+        });
+
+        // Create an array of alphabetical characters used to label the markers.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Add some markers to the map.
+        // Note: The code uses the JavaScript Array.prototype.map() method to
+        // create an array of markers based on a given "locations" array.
+        // The map() method here has nothing to do with the Google Maps API.
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+          });
+        });
+
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath:'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      }
+      var locations = [
+        {lat: 29.649167, lng: -82.326944},
+        {lat: 29.587583, lng: -82.450806},
+        {lat: 29.597500, lng: -82.390833},
+        {lat: 29.635194, lng: -82.356639},
+        {lat: 29.645000, lng: -82.295278},
+        {lat: 29.670750, lng: -82.324917},
+        {lat: 29.709694, lng: -82.394278},
+        {lat:  29.709694, lng: -82.394278}
+        //{lat: -36.828611, lng: 175.790222},
+        //{lat: -37.750000, lng: 145.116667},
+        //{lat: -37.759859, lng: 145.128708},
+        //{lat: -37.765015, lng: 145.133858},
+        //{lat: -37.770104, lng: 145.143299},
+        //{lat: -37.773700, lng: 145.145187},
+        //{lat: -37.774785, lng: 145.137978},
+        //{lat: -37.819616, lng: 144.968119},
+        //{lat: -38.330766, lng: 144.695692},
+        //{lat: -39.927193, lng: 175.053218},
+        //{lat: -41.330162, lng: 174.865694},
+        //{lat: -42.734358, lng: 147.439506},
+        //{lat: -42.734358, lng: 147.501315},
+        //{lat: -42.735258, lng: 147.438000},
+        //{lat: -43.999792, lng: 170.463352}
+      ]
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHjks2E0_K-5AN5AfYS5hWAO3aF1er07g&callback=initMap">
+    </script></h2>
+
+
+	</div>
+
+	<div class="col-md-9">
+	</div>
+</div>
+</div>
+</body>
+
+</html>
